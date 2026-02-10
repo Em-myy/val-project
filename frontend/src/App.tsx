@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./App.css";
+import axios from "axios";
 
 const TextArray: string[] = [
   "Please na 🥺",
@@ -48,6 +49,9 @@ function App() {
   const [msgColor, setMsgColor] = useState<string>("text-gray-700");
   const [list, setList] = useState<string[]>(() => createShuffle(TextArray));
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [buttonDisable, setButtonDisable] = useState<boolean>(false);
+
+  const API_URL = import.meta.env.VITE_BACKEND_URL;
 
   const handleRejection = () => {
     const item = list[currentIndex];
@@ -67,11 +71,29 @@ function App() {
     }
   };
 
+  const handleAccept = async (event: React.ChangeEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    setButtonDisable(true);
+
+    setMsg("YAY! See you on the 14th! 💖");
+    setMsgColor("text-red-500");
+
+    try {
+      await axios.post(`${API_URL}/api/accepted`, {
+        date: new Date(),
+      });
+    } catch (error) {
+      console.error(error);
+      setButtonDisable(false);
+    }
+  };
+
   return (
     <>
       <div className="min-h-screen w-full flex items-center justify-center bg-linear-to-br from-pink-200 via-red-100 to-pink-300 p-4">
         <div className="bg-white/90 backdrop-blur-sm p-8 rounded-3xl shadow-2xl max-w-md w-full text-center border-4 border-white transform transition-all hover:scale-[1.01]">
-          <form className="flex flex-col items-center">
+          <form onSubmit={handleAccept} className="flex flex-col items-center">
             <div className="mb-8">
               <h1 className="text-4xl font-extrabold text-rose-600 drop-shadow-sm mb-2">
                 Be My Val? 🌹
@@ -82,9 +104,10 @@ function App() {
             <div className="flex gap-6 w-full justify-center mb-8">
               <button
                 type="submit"
-                className="px-8 py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-full text-lg shadow-lg transform transition hover:-translate-y-1 active:scale-95 flex-1 cursor-pointer"
+                disabled={buttonDisable}
+                className="px-8 py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-full text-lg shadow-lg transform transition hover:-translate-y-1 active:scale-95 flex-1 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-400 disabled:shadow-none disabled:transform-none"
               >
-                YES 😍
+                {buttonDisable ? "YAY! 💖" : "YES 😍"}
               </button>
 
               <button

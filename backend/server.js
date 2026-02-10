@@ -28,7 +28,6 @@ app.post("/api/accepted", async (req, res) => {
     };
 
     await transporter.sendMail(mailOptions);
-    console.log("Email sent successfully");
     res.status(200).json({ msg: "Sent successfully" });
   } catch (error) {
     console.error(error);
