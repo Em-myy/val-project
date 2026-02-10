@@ -3,14 +3,22 @@ import "./App.css";
 
 function App() {
   const TextArray: string[] = [
-    "Please na",
-    "Why",
-    "Oya i am sorry",
-    "I beg you in the name of God",
-    "I will break your head oo",
+    "Please na 🥺",
+    "Why you doing this? 😭",
+    "Oya i am sorry 💔",
+    "I beg you in the name of God 🙏",
+    "I will break your head oo 😡",
+    "Don't be heartless 🩸",
+    "Just say yes already! 💍",
   ];
 
-  const randomIndex = Math.floor(Math.random() * TextArray.length);
+  const TextColors: string[] = [
+    "text-red-500",
+    "text-pink-600",
+    "text-purple-600",
+    "text-rose-600",
+    "text-orange-600",
+  ];
 
   const [msg, setMsg] = useState<string>("");
   const [list, setList] = useState<string[]>([]);
@@ -23,6 +31,8 @@ function App() {
       const j = Math.floor(Math.random() * (i + 1));
       [newDeck[i], newDeck[j]] = [newDeck[j], newDeck[i]];
     }
+
+    return newDeck;
   };
 
   const handleRejection = () => {
@@ -30,6 +40,13 @@ function App() {
     setMsg(item);
 
     const nextIndex = currentIndex + 1;
+
+    if (nextIndex > list.length - 1) {
+      setList(createShuffle(TextArray));
+      setCurrentIndex(0);
+    } else {
+      setCurrentIndex(nextIndex);
+    }
   };
 
   return (
