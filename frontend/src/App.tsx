@@ -84,8 +84,7 @@ function App() {
         date: new Date(),
       });
     } catch (error) {
-      console.error(error);
-      setButtonDisable(false);
+      console.error("Backend failed, but we still celebrate!", error);
     }
   };
 
@@ -94,6 +93,14 @@ function App() {
       <div className="min-h-screen w-full flex items-center justify-center bg-linear-to-br from-pink-200 via-red-100 to-pink-300 p-4">
         <div className="bg-white/90 backdrop-blur-sm p-8 rounded-3xl shadow-2xl max-w-md w-full text-center border-4 border-white transform transition-all hover:scale-[1.01]">
           <form onSubmit={handleAccept} className="flex flex-col items-center">
+            <div className="mb-8">
+              <span
+                className={`text-8xl block ${buttonDisable ? "teddy-celebrate" : "teddy-wiggle"}`}
+              >
+                🧸
+              </span>
+            </div>
+
             <div className="mb-8">
               <h1 className="text-4xl font-extrabold text-rose-600 drop-shadow-sm mb-2">
                 Be My Val? 🌹

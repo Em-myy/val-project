@@ -1,1 +1,37 @@
 @import "tailwindcss";
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+}
+
+@keyframes celebrate {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.4) rotate(180deg);
+  } /* Added slight zoom */
+  100% {
+    transform: scale(1) rotate(360deg);
+  }
+}
+
+.teddy-wiggle {
+  animation: wiggle 2s ease-in-out infinite;
+  display: inline-block;
+  transform-origin: center;
+}
+
+.teddy-celebrate {
+  /* Removed transition conflict */
+  animation: celebrate 0.6s linear infinite;
+  display: inline-block;
+  transform-origin: center;
+  line-height: 1; /* Fixes emoji height issues */
+}
