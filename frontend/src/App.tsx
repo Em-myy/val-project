@@ -34,6 +34,29 @@ const TextColors: string[] = [
   "text-orange-600",
 ];
 
+const AngryEmojis: string[] = [
+  "🧸💢",
+  "🧸💨",
+  "🧸🔪",
+  "🧸💔",
+  "🧸😭",
+  "🧸🚑",
+  "🧸😤",
+  "🧸🔥",
+  "🧸⚡",
+  "🧸😡",
+  "🧸🤬",
+  "🧸👿",
+  "🧸🧱",
+  "🧸🩹",
+  "🧸🥊",
+  "🧸🧨",
+  "🧸😾",
+  "🧸💣",
+  "🧸🗯️",
+  "🧸🪓",
+];
+
 const createShuffle = (array: string[]) => {
   const newDeck = [...array];
 
@@ -53,6 +76,8 @@ function App() {
   const [list, setList] = useState<string[]>(() => createShuffle(TextArray));
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [buttonDisable, setButtonDisable] = useState<boolean>(false);
+  const [bearEmoji, setBearEmoji] = useState<string>("🧸");
+  const [bearAnim, setBearAnim] = useState<string>("teddy-wiggle");
 
   const API_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -63,6 +88,11 @@ function App() {
     const randomColor =
       TextColors[Math.floor(Math.random() * TextColors.length)];
     setMsgColor(randomColor);
+
+    const randomAngry =
+      AngryEmojis[Math.floor(Math.random() * AngryEmojis.length)];
+    setBearEmoji(randomAngry);
+    setBearAnim("teddy-angry");
 
     const nextIndex = currentIndex + 1;
 
@@ -95,6 +125,9 @@ function App() {
     setMsg("YAY! See you on the 14th! 💖");
     setMsgColor("text-red-500");
 
+    setBearEmoji("🧸🎊"); // Teddy bear with confetti
+    setBearAnim("teddy-celebrate");
+
     try {
       await axios.post(`${API_URL}/api/accepted`, {
         date: new Date(),
@@ -109,11 +142,12 @@ function App() {
       <div className="min-h-screen w-full flex items-center justify-center bg-linear-to-br from-pink-200 via-red-100 to-pink-300 p-4">
         <div className="bg-white/90 backdrop-blur-sm p-8 rounded-3xl shadow-2xl max-w-md w-full text-center border-4 border-white transform transition-all hover:scale-[1.01]">
           <form onSubmit={handleAccept} className="flex flex-col items-center">
-            <div className="mb-8">
+            <div className="mb-4 h-24 flex items-center justify-center">
               <span
-                className={`text-8xl block ${buttonDisable ? "teddy-celebrate" : "teddy-wiggle"}`}
+                key={bearEmoji} // Forces React to restart the animation if emoji changes
+                className={`text-7xl md:text-8xl block ${bearAnim}`} // Applies the animation class
               >
-                🧸
+                {bearEmoji} {/* Renders the actual emoji string */}
               </span>
             </div>
 
