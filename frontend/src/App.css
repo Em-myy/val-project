@@ -16,7 +16,7 @@
   }
   50% {
     transform: scale(1.4) rotate(180deg);
-  } /* Added slight zoom */
+  }
   100% {
     transform: scale(1) rotate(360deg);
   }
@@ -29,9 +29,8 @@
 }
 
 .teddy-celebrate {
-  /* Removed transition conflict */
   animation: celebrate 0.6s linear infinite;
   display: inline-block;
   transform-origin: center;
-  line-height: 1; /* Fixes emoji height issues */
+  line-height: 1;
 }
