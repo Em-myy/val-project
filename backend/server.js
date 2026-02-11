@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import express from "express";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 import cors from "cors";
 
 const app = express();
@@ -13,25 +13,22 @@ app.use(
   }),
 );
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: "ifa010906@gmail.com",
-    pass: "yawn blfr sxwu levu",
-  },
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 app.post("/api/accepted", async (req, res) => {
   try {
-    const mailOptions = {
-      from: "ifa010906@gmail.com",
-      to: "ifa010906@gmail.com",
+    const { data, error } = await resend.emails.send({
+      from: "onboarding@resend.dev",
+      to: "famuyiwaemmanuel565@gmail.com",
       subject: "SHE SAID YES! 💍💖",
-      text: "Time to go and buy ring oo! She just clicked YES!",
-      html: "<h1>CONGRATULATIONS! 🥳</h1><p>She accepted your proposal. Time to celebrate!</p>",
-    };
+      html: "<h1>CONGRATULATIONS! 🥳</h1><p>She accepted my proposal. Time to celebrate and buy ring!</p>",
+    });
 
-    await transporter.sendMail(mailOptions);
+    if (error) {
+      console.error("Resend API Error details:", error);
+      return res.status(400).json({ error: error.message });
+    }
+
     res.status(200).json({ msg: "Sent successfully" });
   } catch (error) {
     console.error(error);

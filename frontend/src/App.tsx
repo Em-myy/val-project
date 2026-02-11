@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import axios from "axios";
+import confetti from "canvas-confetti";
 
 const TextArray: string[] = [
   "Please na 🥺",
@@ -73,6 +74,18 @@ function App() {
 
   const handleAccept = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const successSound = new Audio("/cheer.mp3");
+    successSound
+      .play()
+      .catch((err) => console.log("Audio blocked by browser:", err));
+
+    confetti({
+      particleCount: 150, // Number of confetti pieces
+      spread: 80, // How wide it shoots
+      origin: { y: 0.6 }, // Starts slightly below the middle of the screen
+      colors: ["#ff0000", "#ff69b4", "#ff1493", "#ffffff"], // Valentine colors!
+    });
 
     setButtonDisable(true);
 
