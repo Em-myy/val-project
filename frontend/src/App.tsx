@@ -45,6 +45,8 @@ const createShuffle = (array: string[]) => {
   return newDeck;
 };
 
+const successSound = new Audio("/cheer.mp3");
+
 function App() {
   const [msg, setMsg] = useState<string>("");
   const [msgColor, setMsgColor] = useState<string>("text-gray-700");
@@ -75,15 +77,16 @@ function App() {
   const handleAccept = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const successSound = new Audio("/cheer.mp3");
+    successSound.currentTime = 0;
     successSound
       .play()
       .catch((err) => console.log("Audio blocked by browser:", err));
 
     confetti({
-      particleCount: 150, // Number of confetti pieces
-      spread: 80, // How wide it shoots
+      particleCount: 200, // Number of confetti pieces
+      spread: 90, // How wide it shoots
       origin: { y: 0.6 }, // Starts slightly below the middle of the screen
+      zIndex: 9999,
       colors: ["#ff0000", "#ff69b4", "#ff1493", "#ffffff"], // Valentine colors!
     });
 
