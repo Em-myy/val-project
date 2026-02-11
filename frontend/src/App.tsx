@@ -15,7 +15,7 @@ const TextArray: string[] = [
   "God is watching you oo 👀",
   "Even if it is pity, just pity me 😞",
   "I have already bought the gift... 🎁",
-  "Are you seeing someone else? 🤨",
+  "How dare you reject me, You have mind oo? 🤨",
   "Just say Yes let everybody rest 😴",
   "You are breaking a innocent heart 🩸",
   "I will cry blood oo 🩸",
@@ -103,9 +103,11 @@ function App() {
 
             <div className="mb-8">
               <h1 className="text-4xl font-extrabold text-rose-600 drop-shadow-sm mb-2">
-                Be My Val? 🌹
+                Will You Be My Val? 🌹
               </h1>
-              <p className="text-gray-500 font-medium">I promise I'm nice...</p>
+              <p className="text-gray-500 font-medium">
+                I promise I'm nice and I'm gentle...
+              </p>
             </div>
 
             <div className="flex gap-6 w-full justify-center mb-8">
